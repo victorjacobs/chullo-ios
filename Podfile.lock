@@ -1,0 +1,18 @@
+PODS:
+  - AFDateHelper (3.4.2)
+  - Alamofire (3.4.1)
+  - SwiftyJSON (2.3.2)
+
+DEPENDENCIES:
+  - AFDateHelper
+  - Alamofire
+  - SwiftyJSON
+
+SPEC CHECKSUMS:
+  AFDateHelper: aecee6bb264d6531795649f4ebac47783d2bab74
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+
+PODFILE CHECKSUM: a02005acdc34000bf970db48561667c41959772c
+
+COCOAPODS: 1.0.1

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		130CDE97F2525860097D0BA0 /* Pods_Chullo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7664EBB29C5160278A3AB84 /* Pods_Chullo.framework */; };
+		575EEBB51D1815C000E90C5B /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575EEBB41D1815C000E90C5B /* Router.swift */; };
+		575EEBB71D18334800E90C5B /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575EEBB61D18334800E90C5B /* OAuth.swift */; };
 		5786F46A1D15CF81008FFE4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5786F4691D15CF81008FFE4B /* AppDelegate.swift */; };
 		5786F46C1D15CF81008FFE4B /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5786F46B1D15CF81008FFE4B /* FirstViewController.swift */; };
 		5786F46E1D15CF81008FFE4B /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5786F46D1D15CF81008FFE4B /* SecondViewController.swift */; };
@@ -14,6 +17,8 @@
 		5786F4731D15CF81008FFE4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5786F4721D15CF81008FFE4B /* Assets.xcassets */; };
 		5786F4761D15CF81008FFE4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5786F4741D15CF81008FFE4B /* LaunchScreen.storyboard */; };
 		5786F4811D15CF81008FFE4B /* ChulloTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5786F4801D15CF81008FFE4B /* ChulloTests.swift */; };
+		5786F48E1D15D3EB008FFE4B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5786F48D1D15D3EB008FFE4B /* LoginViewController.swift */; };
+		BE531D72AC1BE6A89927E39C /* Pods_ChulloTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82FA72F7C30055B315FEF754 /* Pods_ChulloTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +32,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C465F6CBC12E713CF0E4121 /* Pods-Chullo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chullo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chullo/Pods-Chullo.debug.xcconfig"; sourceTree = "<group>"; };
+		41AA7CEADA491C8B405BAA9D /* Pods-ChulloTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChulloTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChulloTests/Pods-ChulloTests.release.xcconfig"; sourceTree = "<group>"; };
+		575EEBB41D1815C000E90C5B /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		575EEBB61D18334800E90C5B /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		5786F4661D15CF81008FFE4B /* Chullo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chullo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5786F4691D15CF81008FFE4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5786F46B1D15CF81008FFE4B /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +47,11 @@
 		5786F47C1D15CF81008FFE4B /* ChulloTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChulloTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5786F4801D15CF81008FFE4B /* ChulloTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChulloTests.swift; sourceTree = "<group>"; };
 		5786F4821D15CF81008FFE4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5786F48D1D15D3EB008FFE4B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		6B6C91B225F6B9E00E45221E /* Pods-Chullo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chullo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chullo/Pods-Chullo.release.xcconfig"; sourceTree = "<group>"; };
+		82FA72F7C30055B315FEF754 /* Pods_ChulloTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChulloTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A160B05A39CC95B9AFE10D1F /* Pods-ChulloTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChulloTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChulloTests/Pods-ChulloTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E7664EBB29C5160278A3AB84 /* Pods_Chullo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chullo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				130CDE97F2525860097D0BA0 /* Pods_Chullo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,18 +67,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE531D72AC1BE6A89927E39C /* Pods_ChulloTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20DEB793241C5E8B30742306 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E7664EBB29C5160278A3AB84 /* Pods_Chullo.framework */,
+				82FA72F7C30055B315FEF754 /* Pods_ChulloTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5786F45D1D15CF81008FFE4B = {
 			isa = PBXGroup;
 			children = (
 				5786F4681D15CF81008FFE4B /* Chullo */,
 				5786F47F1D15CF81008FFE4B /* ChulloTests */,
 				5786F4671D15CF81008FFE4B /* Products */,
+				AD9D1893A93E6F32F8D3743E /* Pods */,
+				20DEB793241C5E8B30742306 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,6 +113,9 @@
 				5786F4721D15CF81008FFE4B /* Assets.xcassets */,
 				5786F4741D15CF81008FFE4B /* LaunchScreen.storyboard */,
 				5786F4771D15CF81008FFE4B /* Info.plist */,
+				5786F48D1D15D3EB008FFE4B /* LoginViewController.swift */,
+				575EEBB41D1815C000E90C5B /* Router.swift */,
+				575EEBB61D18334800E90C5B /* OAuth.swift */,
 			);
 			path = Chullo;
 			sourceTree = "<group>";
@@ -99,6 +129,17 @@
 			path = ChulloTests;
 			sourceTree = "<group>";
 		};
+		AD9D1893A93E6F32F8D3743E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2C465F6CBC12E713CF0E4121 /* Pods-Chullo.debug.xcconfig */,
+				6B6C91B225F6B9E00E45221E /* Pods-Chullo.release.xcconfig */,
+				A160B05A39CC95B9AFE10D1F /* Pods-ChulloTests.debug.xcconfig */,
+				41AA7CEADA491C8B405BAA9D /* Pods-ChulloTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,9 +147,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5786F4851D15CF81008FFE4B /* Build configuration list for PBXNativeTarget "Chullo" */;
 			buildPhases = (
+				A8E462C15036868D0F32595B /* [CP] Check Pods Manifest.lock */,
 				5786F4621D15CF81008FFE4B /* Sources */,
 				5786F4631D15CF81008FFE4B /* Frameworks */,
 				5786F4641D15CF81008FFE4B /* Resources */,
+				03915EC96C9E87E00B0D96C8 /* [CP] Embed Pods Frameworks */,
+				E7DC11FC75A612C8D7E84557 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -123,9 +167,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5786F4881D15CF81008FFE4B /* Build configuration list for PBXNativeTarget "ChulloTests" */;
 			buildPhases = (
+				4BC74983C50091D40D16DF3C /* [CP] Check Pods Manifest.lock */,
 				5786F4781D15CF81008FFE4B /* Sources */,
 				5786F4791D15CF81008FFE4B /* Frameworks */,
 				5786F47A1D15CF81008FFE4B /* Resources */,
+				A19AD30D6FDB8CE5C817E8D8 /* [CP] Embed Pods Frameworks */,
+				3B0B50BFBC04FE16893A2BCB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -197,14 +244,110 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		03915EC96C9E87E00B0D96C8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chullo/Pods-Chullo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3B0B50BFBC04FE16893A2BCB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChulloTests/Pods-ChulloTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4BC74983C50091D40D16DF3C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A19AD30D6FDB8CE5C817E8D8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChulloTests/Pods-ChulloTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A8E462C15036868D0F32595B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E7DC11FC75A612C8D7E84557 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chullo/Pods-Chullo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5786F4621D15CF81008FFE4B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5786F48E1D15D3EB008FFE4B /* LoginViewController.swift in Sources */,
 				5786F46E1D15CF81008FFE4B /* SecondViewController.swift in Sources */,
+				575EEBB51D1815C000E90C5B /* Router.swift in Sources */,
 				5786F46A1D15CF81008FFE4B /* AppDelegate.swift in Sources */,
 				5786F46C1D15CF81008FFE4B /* FirstViewController.swift in Sources */,
+				575EEBB71D18334800E90C5B /* OAuth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,8 +476,10 @@
 		};
 		5786F4861D15CF81008FFE4B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C465F6CBC12E713CF0E4121 /* Pods-Chullo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Chullo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.victorjacobs.Chullo;
@@ -344,8 +489,10 @@
 		};
 		5786F4871D15CF81008FFE4B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B6C91B225F6B9E00E45221E /* Pods-Chullo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Chullo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.victorjacobs.Chullo;
@@ -355,6 +502,7 @@
 		};
 		5786F4891D15CF81008FFE4B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A160B05A39CC95B9AFE10D1F /* Pods-ChulloTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ChulloTests/Info.plist;
@@ -367,6 +515,7 @@
 		};
 		5786F48A1D15CF81008FFE4B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41AA7CEADA491C8B405BAA9D /* Pods-ChulloTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ChulloTests/Info.plist;
@@ -396,6 +545,7 @@
 				5786F4871D15CF81008FFE4B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5786F4881D15CF81008FFE4B /* Build configuration list for PBXNativeTarget "ChulloTests" */ = {
 			isa = XCConfigurationList;
@@ -404,6 +554,7 @@
 				5786F48A1D15CF81008FFE4B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
