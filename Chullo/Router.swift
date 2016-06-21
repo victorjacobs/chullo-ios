@@ -14,6 +14,7 @@ enum Router: URLRequestConvertible {
     case Authenticate(String, String)
     case RefreshToken(String)
     case Profile
+    case GetFiles
     
     var baseUrl: String {
         return "https://chullo.io"
@@ -34,6 +35,8 @@ enum Router: URLRequestConvertible {
             return "/oauth/token"
         case Profile:
             return "/users/me"
+        case GetFiles:
+            return "/files"
         }
     }
     

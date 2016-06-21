@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: Properties
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -18,14 +18,16 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
 
-        // Do any additional setup after loading the view.
         getUserProfile()
+        getFiles()
     }
     
     func getUserProfile() {
-        if let accessToken = OAuth.accessToken {
-            print(accessToken)
+        if let _ = OAuth.accessToken {
             debugPrint(Alamofire.request(Router.Profile)
                 .validate()
                 .responseJSON { response in
@@ -40,6 +42,21 @@ class LoginViewController: UIViewController {
                 })
         }
     }
+    
+    func getFiles() {
+        if let _ = OAuth.accessToken {
+            debugPrint(Alamofire.request(Router.GetFiles)
+                .validate()
+                .responseJSON { response in
+                    switch response.result {
+                    case .Success(let data):
+                        print(data)
+                    case .Failure(let err):
+                        print(err)
+                    }
+                })
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -47,7 +64,7 @@ class LoginViewController: UIViewController {
     }
     
     // MARK: Actions
-    @IBAction func login(sender: UIButton) {
+    @IBAction func login(sender: UIButton?) {
         if let email = emailTextField.text, let password = passwordTextField.text {
             OAuth.authenticate(email, password: password)
             getUserProfile()
@@ -64,6 +81,20 @@ class LoginViewController: UIViewController {
     @IBAction func refreshToken(sender: UIButton) {
         OAuth.expireToken()
         OAuth.accessToken
+    }
+    
+    // MARK: UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        switch textField {
+        case emailTextField:
+            passwordTextField.becomeFirstResponder()
+        case passwordTextField:
+            passwordTextField.resignFirstResponder()
+            login(nil)
+        default: break
+        }
+        
+        return textField.text?.characters.count > 0
     }
     
     /*

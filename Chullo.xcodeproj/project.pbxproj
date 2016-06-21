@@ -11,13 +11,14 @@
 		575EEBB51D1815C000E90C5B /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575EEBB41D1815C000E90C5B /* Router.swift */; };
 		575EEBB71D18334800E90C5B /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575EEBB61D18334800E90C5B /* OAuth.swift */; };
 		5786F46A1D15CF81008FFE4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5786F4691D15CF81008FFE4B /* AppDelegate.swift */; };
-		5786F46C1D15CF81008FFE4B /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5786F46B1D15CF81008FFE4B /* FirstViewController.swift */; };
-		5786F46E1D15CF81008FFE4B /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5786F46D1D15CF81008FFE4B /* SecondViewController.swift */; };
 		5786F4711D15CF81008FFE4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5786F46F1D15CF81008FFE4B /* Main.storyboard */; };
 		5786F4731D15CF81008FFE4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5786F4721D15CF81008FFE4B /* Assets.xcassets */; };
 		5786F4761D15CF81008FFE4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5786F4741D15CF81008FFE4B /* LaunchScreen.storyboard */; };
 		5786F4811D15CF81008FFE4B /* ChulloTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5786F4801D15CF81008FFE4B /* ChulloTests.swift */; };
 		5786F48E1D15D3EB008FFE4B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5786F48D1D15D3EB008FFE4B /* LoginViewController.swift */; };
+		57A2C3511D19488E00055043 /* FilesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A2C3501D19488E00055043 /* FilesTableViewController.swift */; };
+		57A2C3531D1949E300055043 /* FileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A2C3521D1949E300055043 /* FileTableViewCell.swift */; };
+		57A2C3561D194B0200055043 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A2C3551D194B0200055043 /* File.swift */; };
 		BE531D72AC1BE6A89927E39C /* Pods_ChulloTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82FA72F7C30055B315FEF754 /* Pods_ChulloTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,8 +39,6 @@
 		575EEBB61D18334800E90C5B /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		5786F4661D15CF81008FFE4B /* Chullo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chullo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5786F4691D15CF81008FFE4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5786F46B1D15CF81008FFE4B /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		5786F46D1D15CF81008FFE4B /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		5786F4701D15CF81008FFE4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5786F4721D15CF81008FFE4B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5786F4751D15CF81008FFE4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -48,6 +47,9 @@
 		5786F4801D15CF81008FFE4B /* ChulloTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChulloTests.swift; sourceTree = "<group>"; };
 		5786F4821D15CF81008FFE4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5786F48D1D15D3EB008FFE4B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		57A2C3501D19488E00055043 /* FilesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesTableViewController.swift; sourceTree = "<group>"; };
+		57A2C3521D1949E300055043 /* FileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTableViewCell.swift; sourceTree = "<group>"; };
+		57A2C3551D194B0200055043 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		6B6C91B225F6B9E00E45221E /* Pods-Chullo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chullo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chullo/Pods-Chullo.release.xcconfig"; sourceTree = "<group>"; };
 		82FA72F7C30055B315FEF754 /* Pods_ChulloTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChulloTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A160B05A39CC95B9AFE10D1F /* Pods-ChulloTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChulloTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChulloTests/Pods-ChulloTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -106,16 +108,16 @@
 		5786F4681D15CF81008FFE4B /* Chullo */ = {
 			isa = PBXGroup;
 			children = (
+				57A2C3541D194AF800055043 /* Model */,
+				57A2C34F1D19480500055043 /* Controllers */,
 				5786F4691D15CF81008FFE4B /* AppDelegate.swift */,
-				5786F46B1D15CF81008FFE4B /* FirstViewController.swift */,
-				5786F46D1D15CF81008FFE4B /* SecondViewController.swift */,
 				5786F46F1D15CF81008FFE4B /* Main.storyboard */,
 				5786F4721D15CF81008FFE4B /* Assets.xcassets */,
 				5786F4741D15CF81008FFE4B /* LaunchScreen.storyboard */,
 				5786F4771D15CF81008FFE4B /* Info.plist */,
-				5786F48D1D15D3EB008FFE4B /* LoginViewController.swift */,
 				575EEBB41D1815C000E90C5B /* Router.swift */,
 				575EEBB61D18334800E90C5B /* OAuth.swift */,
+				57A2C3521D1949E300055043 /* FileTableViewCell.swift */,
 			);
 			path = Chullo;
 			sourceTree = "<group>";
@@ -127,6 +129,23 @@
 				5786F4821D15CF81008FFE4B /* Info.plist */,
 			);
 			path = ChulloTests;
+			sourceTree = "<group>";
+		};
+		57A2C34F1D19480500055043 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5786F48D1D15D3EB008FFE4B /* LoginViewController.swift */,
+				57A2C3501D19488E00055043 /* FilesTableViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		57A2C3541D194AF800055043 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				57A2C3551D194B0200055043 /* File.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		AD9D1893A93E6F32F8D3743E /* Pods */ = {
@@ -343,10 +362,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5786F48E1D15D3EB008FFE4B /* LoginViewController.swift in Sources */,
-				5786F46E1D15CF81008FFE4B /* SecondViewController.swift in Sources */,
+				57A2C3531D1949E300055043 /* FileTableViewCell.swift in Sources */,
+				57A2C3561D194B0200055043 /* File.swift in Sources */,
 				575EEBB51D1815C000E90C5B /* Router.swift in Sources */,
+				57A2C3511D19488E00055043 /* FilesTableViewController.swift in Sources */,
 				5786F46A1D15CF81008FFE4B /* AppDelegate.swift in Sources */,
-				5786F46C1D15CF81008FFE4B /* FirstViewController.swift in Sources */,
 				575EEBB71D18334800E90C5B /* OAuth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
