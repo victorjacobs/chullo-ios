@@ -8,16 +8,37 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class LoginViewController: UIViewController {
     // MARK: Properties
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var debugLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        getUserProfile()
+    }
+    
+    func getUserProfile() {
+        if let accessToken = OAuth.accessToken {
+            print(accessToken)
+            debugPrint(Alamofire.request(Router.Profile)
+                .validate()
+                .responseJSON { response in
+                    switch response.result {
+                    case .Success(let data):
+                        print(data)
+                        let json = JSON(data)
+                        self.debugLabel.text = "Welcome \(json["emailAddress"]) (\(json["_id"]))"
+                    case .Failure:
+                        print(response)
+                    }
+                })
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,24 +49,23 @@ class LoginViewController: UIViewController {
     // MARK: Actions
     @IBAction func login(sender: UIButton) {
         if let email = emailTextField.text, let password = passwordTextField.text {
-            debugPrint(Alamofire.request(Router.Authenticate(email, password))
-                .validate()
-                .responseJSON { response in
-                    switch response.result {
-                    case .Success:
-                        print(response)
-                        
-                    case .Failure:
-                        print("invalid credentials")
-                        print(response)
-                    }
-                })
+            OAuth.authenticate(email, password: password)
+            getUserProfile()
         } else {
             print("invalid credentials")
         }
     }
     
+    @IBAction func removeToken(sender: UIButton) {
+        OAuth.clearToken()
+        exit(1)
+    }
 
+    @IBAction func refreshToken(sender: UIButton) {
+        OAuth.expireToken()
+        OAuth.accessToken
+    }
+    
     /*
     // MARK: - Navigation
 
