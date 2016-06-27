@@ -15,7 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // If not logged in, show login page
+        if !OAuth.validToken {
+            let loginViewController = UIStoryboard.init(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("LoginViewController")
+            window?.makeKeyAndVisible()
+            window?.rootViewController?.presentViewController(loginViewController, animated: false, completion: nil)
+        }
+        
         return true
     }
 

@@ -9,6 +9,7 @@ target 'Chullo' do
   pod 'Alamofire'
   pod 'SwiftyJSON'
   pod 'AFDateHelper'
+  pod '1PasswordExtension', '~> 1.8.2'
 
   target 'ChulloTests' do
     inherit! :search_paths

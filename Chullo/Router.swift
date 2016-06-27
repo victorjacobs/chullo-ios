@@ -13,8 +13,13 @@ enum Router: URLRequestConvertible {
     // MARK: Enum values
     case Authenticate(String, String)
     case RefreshToken(String)
-    case Profile
+    case GetProfile
     case GetFiles
+    case GetStats
+    
+    // Upload
+    case PostFiles(String)
+    case UploadFile(String, UIImage)
     
     var baseUrl: String {
         return "https://chullo.io"
@@ -22,7 +27,7 @@ enum Router: URLRequestConvertible {
     
     var method: Alamofire.Method {
         switch (self) {
-        case .Authenticate(_, _), .RefreshToken(_):
+        case .Authenticate(_, _), .RefreshToken(_), PostFiles(_), .UploadFile(_, _):
             return .POST
         default:
             return .GET
@@ -33,10 +38,14 @@ enum Router: URLRequestConvertible {
         switch self {
         case .Authenticate(_, _), .RefreshToken(_):
             return "/oauth/token"
-        case Profile:
+        case GetProfile:
             return "/users/me"
-        case GetFiles:
+        case GetFiles, PostFiles(_):
             return "/files"
+        case GetStats:
+            return "/stats"
+        case .UploadFile(_, _):
+            return "/upload"
         }
     }
     
@@ -67,6 +76,8 @@ enum Router: URLRequestConvertible {
                 "password": password,
                 "client_id": "CYdRSMq2PGkJdsEd9uhIZFqWS0sYqZ",
                 "client_secret": "rTLuyr6OiKksinIMoG8vdW1tGGsWuG"
+//                "client_id": "foo",
+//                "client_secret": "bar"
                 ]).0
         case .RefreshToken(let refreshToken):
             return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: [
@@ -74,7 +85,15 @@ enum Router: URLRequestConvertible {
                 "refresh_token": refreshToken,
                 "client_id": "CYdRSMq2PGkJdsEd9uhIZFqWS0sYqZ",
                 "client_secret": "rTLuyr6OiKksinIMoG8vdW1tGGsWuG"
+//                "client_id": "foo",
+//                "client_secret": "bar"
                 ]).0
+        case .PostFiles(let fileName):
+            return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: [
+                    "name": fileName
+                ]).0
+        case .UploadFile(let id, let image):
+            return mutableURLRequest
         default:
             return mutableURLRequest
         }

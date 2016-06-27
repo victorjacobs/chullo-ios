@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import Photos
+import Alamofire
+import SwiftyJSON
 
-class FilesTableViewController: UITableViewController {
+// TODO maybe move upload logic to different controller
+class FilesTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -27,6 +31,40 @@ class FilesTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Actions
+    @IBAction func upload(sender: AnyObject) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .PhotoLibrary
+        imagePickerController.delegate = self
+        presentViewController(imagePickerController, animated: true, completion: nil)
+    }
+    
+    // MARK: UIImagePickerControllerDelegate
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        if let imageURL = info[UIImagePickerControllerReferenceURL] as? NSURL {
+            let result = PHAsset.fetchAssetsWithALAssetURLs([imageURL], options: nil)
+            let filename = result.firstObject?.filename ?? ""
+            
+            // TODO maybe promisify this
+            debugPrint(Alamofire.request(Router.PostFiles(filename!))
+                .validate()
+                .responseJSON { response in
+                    switch response.result {
+                    case .Success(let data):
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                        let id = JSON(data)["_id"]
+                    case .Failure(let err):
+                        print(err)
+                    }
+                })
+        }
     }
 
     // MARK: - Table view data source

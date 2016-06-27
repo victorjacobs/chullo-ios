@@ -19,13 +19,19 @@ class OAuth {
     static let refreshTokenKey = "oauthRefreshTokenKey"
     static let defaults = NSUserDefaults.standardUserDefaults()
     
-    // MARK: Fields
+    // MARK: Properties
     static var accessToken: String? {
         if expired, let refreshToken = refreshToken {
+            // Use semaphore to perform synchronous token refresh
+            let semaphore = dispatch_semaphore_create(0)
+            
+            // Create queue to avoid refresh token call waiting on call that triggered it
+            let queue = dispatch_queue_create("com.victorjacobs.chullo.refresh-token-queue", DISPATCH_QUEUE_CONCURRENT)
+            
             debugPrint(Alamofire.request(Router.RefreshToken(refreshToken))
                 .validate()
-                .responseJSON { request in
-                    switch request.result {
+                .responseJSON(queue: queue, options: .AllowFragments) { response in
+                    switch response.result {
                     case .Success(let data):
                         saveFromOAuthResponse(data)
                         print("Successfully refreshed token \(data)")
@@ -33,7 +39,11 @@ class OAuth {
                         print("Failed refreshing token \(err)")
                         clearToken()
                     }
+                    
+                    dispatch_semaphore_signal(semaphore)
                 })
+            
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
         }
         return defaults.objectForKey(tokenKey) as? String
     }
@@ -46,7 +56,17 @@ class OAuth {
         if let expiresAt = defaults.objectForKey(tokenExpiryKey) as? NSDate {
             return expiresAt.isInPast()
         } else {
+            // If expiresAt not found, assume that the token was expired
             return true
+        }
+    }
+    
+    static var validToken: Bool {
+        // Don't try and check whether accessToken is nil because that will start a whole thing
+        if let _ = refreshToken {
+            return true
+        } else {
+            return false
         }
     }
     
