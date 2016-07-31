@@ -13,13 +13,31 @@ import SwiftyJSON
 
 // TODO maybe move upload logic to different controller
 class FilesTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    var files: [File] = []
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Fetch all files when view loaded
+        Alamofire.request(Router.GetFiles)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .Success(let data):
+                    let json = JSON(data)
+                    for file in json {
+                        self.files.append(File.fromJSON(file.1))
+                    }
+                    
+                    self.tableView.reloadData()
+                case .Failure(let err):
+                    print(err)
+                }
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -70,24 +88,20 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.files.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("FileTableViewCell", forIndexPath: indexPath) as! FileTableViewCell
 
-        // Configure the cell...
+        cell.file = self.files[indexPath.row]
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -124,14 +138,14 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
     }
     */
 
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "ShowFile" {
+            let fileViewController = segue.destinationViewController as! FileViewController
+            if let selectedFileCell = sender as? FileTableViewCell {
+                fileViewController.file = selectedFileCell.file
+            }
+        }
     }
-    */
 
 }

@@ -21,7 +21,7 @@ enum Router: URLRequestConvertible {
     case PostFiles(String)
     case UploadFile(String, UIImage)
     
-    var baseUrl: String {
+    static var baseUrl: String {
         return "https://chullo.io"
     }
     
@@ -50,7 +50,7 @@ enum Router: URLRequestConvertible {
     }
     
     var URLRequest: NSMutableURLRequest {
-        let URL = NSURL(string: baseUrl)!
+        let URL = NSURL(string: Router.baseUrl)!
         var mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
         mutableURLRequest.HTTPMethod = method.rawValue
         

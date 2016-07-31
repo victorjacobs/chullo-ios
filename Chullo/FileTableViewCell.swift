@@ -11,9 +11,10 @@ import UIKit
 class FileTableViewCell: UITableViewCell {
     // MARK: Properties
     @IBOutlet weak var filenameLabel: UILabel!
-
-    func from(file: File) {
-        filenameLabel.text = file.name
+    var file: File! {
+        didSet {
+            filenameLabel.text = file.name
+        }
     }
     
     override func awakeFromNib() {
