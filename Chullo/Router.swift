@@ -11,15 +11,15 @@ import Alamofire
 
 enum Router: URLRequestConvertible {
     // MARK: Enum values
-    case Authenticate(String, String)
-    case RefreshToken(String)
-    case GetProfile
-    case GetFiles
-    case GetStats
+    case authenticate(String, String)
+    case refreshToken(String)
+    case getProfile
+    case getFiles
+    case getStats
     
     // Upload
-    case PostFiles(String)
-    case UploadFile(String, UIImage)
+    case postFiles(String)
+    case uploadFile(String, UIImage)
     
     static var baseUrl: String {
         return "https://chullo.io"
@@ -27,7 +27,7 @@ enum Router: URLRequestConvertible {
     
     var method: Alamofire.Method {
         switch (self) {
-        case .Authenticate(_, _), .RefreshToken(_), PostFiles(_), .UploadFile(_, _):
+        case .authenticate(_, _), .refreshToken(_), .postFiles(_), .UploadFile(_, _):
             return .POST
         default:
             return .GET
@@ -36,13 +36,13 @@ enum Router: URLRequestConvertible {
     
     var path: String {
         switch self {
-        case .Authenticate(_, _), .RefreshToken(_):
+        case .authenticate(_, _), .refreshToken(_):
             return "/oauth/token"
-        case GetProfile:
+        case .getProfile:
             return "/users/me"
-        case GetFiles, PostFiles(_):
+        case .getFiles, .postFiles(_):
             return "/files"
-        case GetStats:
+        case .getStats:
             return "/stats"
         case .UploadFile(_, _):
             return "/upload"
@@ -50,13 +50,13 @@ enum Router: URLRequestConvertible {
     }
     
     var URLRequest: NSMutableURLRequest {
-        let URL = NSURL(string: Router.baseUrl)!
-        var mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
+        let URL = Foundation.URL(string: Router.baseUrl)!
+        var mutableURLRequest = NSMutableURLRequest(url: URL.appendingPathComponent(path))
         mutableURLRequest.HTTPMethod = method.rawValue
         
         // Set authorization
         switch self {
-        case .Authenticate(_, _), .RefreshToken(_):
+        case .authenticate(_, _), .refreshToken(_):
             break
         default:
             if let accessToken = OAuth.accessToken {
@@ -68,7 +68,7 @@ enum Router: URLRequestConvertible {
         
         //  Set parameters of request
         switch self {
-        case .Authenticate(let email, let password):
+        case .authenticate(let email, let password):
             // TODO constants extracten en ergens storen
             return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: [
                 "grant_type": "password",
@@ -79,7 +79,7 @@ enum Router: URLRequestConvertible {
 //                "client_id": "foo",
 //                "client_secret": "bar"
                 ]).0
-        case .RefreshToken(let refreshToken):
+        case .refreshToken(let refreshToken):
             return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: [
                 "grant_type": "refresh_token",
                 "refresh_token": refreshToken,
@@ -88,7 +88,7 @@ enum Router: URLRequestConvertible {
 //                "client_id": "foo",
 //                "client_secret": "bar"
                 ]).0
-        case .PostFiles(let fileName):
+        case .postFiles(let fileName):
             return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: [
                     "name": fileName
                 ]).0

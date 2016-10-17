@@ -38,11 +38,11 @@ class ProfileViewController: UIViewController {
     }
     
     // MARK: Actions
-    @IBAction func logout(sender: AnyObject) {
+    @IBAction func logout(_ sender: AnyObject) {
         OAuth.clearToken()
     }
     
-    @IBAction func expireToken(sender: AnyObject) {
+    @IBAction func expireToken(_ sender: AnyObject) {
         OAuth.expireToken()
     }
 

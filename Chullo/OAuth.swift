@@ -17,16 +17,16 @@ class OAuth {
     static let tokenKey = "oauthToken"
     static let tokenExpiryKey = "oauthTokenExpiry"
     static let refreshTokenKey = "oauthRefreshTokenKey"
-    static let defaults = NSUserDefaults.standardUserDefaults()
+    static let defaults = UserDefaults.standard
     
     // MARK: Properties
     static var accessToken: String? {
         if expired, let refreshToken = refreshToken {
             // Use semaphore to perform synchronous token refresh
-            let semaphore = dispatch_semaphore_create(0)
+            let semaphore = DispatchSemaphore(value: 0)
             
             // Create queue to avoid refresh token call waiting on call that triggered it
-            let queue = dispatch_queue_create("com.victorjacobs.chullo.refresh-token-queue", DISPATCH_QUEUE_CONCURRENT)
+            let queue = DispatchQueue(label: "com.victorjacobs.chullo.refresh-token-queue", attributes: DispatchQueue.Attributes.concurrent)
             
             debugPrint(Alamofire.request(Router.RefreshToken(refreshToken))
                 .validate()
@@ -43,17 +43,17 @@ class OAuth {
                     dispatch_semaphore_signal(semaphore)
                 })
             
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+            semaphore.wait(timeout: DispatchTime.distantFuture)
         }
-        return defaults.objectForKey(tokenKey) as? String
+        return defaults.object(forKey: tokenKey) as? String
     }
     
     static var refreshToken: String? {
-        return defaults.objectForKey(refreshTokenKey) as? String
+        return defaults.object(forKey: refreshTokenKey) as? String
     }
     
     static var expired: Bool {
-        if let expiresAt = defaults.objectForKey(tokenExpiryKey) as? NSDate {
+        if let expiresAt = defaults.object(forKey: tokenExpiryKey) as? Date {
             return expiresAt.isInPast()
         } else {
             // If expiresAt not found, assume that the token was expired
@@ -71,7 +71,7 @@ class OAuth {
     }
     
     // MARK: OAuth Methods
-    static func authenticate(userName: String, password: String) {
+    static func authenticate(_ userName: String, password: String) {
         debugPrint(Alamofire.request(Router.Authenticate(userName, password))
             .validate()
             .responseJSON { response in
@@ -86,11 +86,11 @@ class OAuth {
             })
     }
     
-    static func saveFromOAuthResponse(response: AnyObject) {
+    static func saveFromOAuthResponse(_ response: AnyObject) {
         let json = JSON(response)
         let token = json["access_token"].stringValue
         let refreshToken = json["refresh_token"].stringValue
-        let expiresAt = NSDate().dateByAddingSeconds(json["expires_in"].intValue)
+        let expiresAt = Date().dateByAddingSeconds(json["expires_in"].intValue)
         
         defaults.setObject(token, forKey: tokenKey)
         defaults.setObject(refreshToken, forKey: refreshTokenKey)
@@ -101,15 +101,15 @@ class OAuth {
     
     // MARK: Debug Methods
     static func clearToken() {
-        defaults.removeObjectForKey(tokenKey)
-        defaults.removeObjectForKey(tokenExpiryKey)
-        defaults.removeObjectForKey(refreshTokenKey)
+        defaults.removeObject(forKey: tokenKey)
+        defaults.removeObject(forKey: tokenExpiryKey)
+        defaults.removeObject(forKey: refreshTokenKey)
         
         print("token removed")
     }
     
     static func expireToken() {
-        defaults.setObject(NSDate().dateBySubtractingDays(10), forKey: tokenExpiryKey)
+        defaults.setObject(Date().dateBySubtractingDays(10), forKey: tokenExpiryKey)
         print("token expired")
     }
 }

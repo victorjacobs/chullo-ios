@@ -21,11 +21,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         // Programatically set 1password image because interfacebuilder ¯\_(ツ)_/¯
-        let bundle = NSBundle(path: NSBundle(forClass: OnePasswordExtension.self).pathForResource("OnePasswordExtensionResources", ofType: "bundle")!)
-        let image = UIImage(named: "onepassword-button.png", inBundle: bundle, compatibleWithTraitCollection: nil)
-        onepasswordButton.setImage(image, forState: .Normal)
+        let bundle = Bundle(path: Bundle(for: OnePasswordExtension.self).path(forResource: "OnePasswordExtensionResources", ofType: "bundle")!)
+        let image = UIImage(named: "onepassword-button.png", in: bundle, compatibleWith: nil)
+        onepasswordButton.setImage(image, for: UIControlState())
         // Hide when 1password not available
-        onepasswordButton.hidden = !OnePasswordExtension.sharedExtension().isAppExtensionAvailable()
+        onepasswordButton.isHidden = !OnePasswordExtension.shared().isAppExtensionAvailable()
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
@@ -37,16 +37,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: Actions
-    @IBAction func login(sender: UIButton?) {
+    @IBAction func login(_ sender: UIButton?) {
         if let email = emailTextField.text, let password = passwordTextField.text {
             // TODO do something here when not able to log in (do something magic with auth method)
             OAuth.authenticate(email, password: password)
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
         }
     }
     
-    @IBAction func findLoginFrom1Password(sender: UIButton) {
-        OnePasswordExtension.sharedExtension().findLoginForURLString("https://chullo.io", forViewController: self, sender: sender) { (dict, err) in
+    @IBAction func findLoginFrom1Password(_ sender: UIButton) {
+        OnePasswordExtension.shared().findLogin(forURLString: "https://chullo.io", for: self, sender: sender) { (dict, err) in
             if let dict = dict {
                 if dict.isEmpty {
                     return
@@ -59,7 +59,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: UITextFieldDelegate
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case emailTextField:
             passwordTextField.becomeFirstResponder()

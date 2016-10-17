@@ -1,8 +1,8 @@
 PODS:
-  - 1PasswordExtension (1.8.2)
-  - AFDateHelper (3.4.2)
-  - Alamofire (3.4.1)
-  - SwiftyJSON (2.3.2)
+  - 1PasswordExtension (1.8.4)
+  - AFDateHelper (3.5.3)
+  - Alamofire (4.0.1)
+  - SwiftyJSON (3.1.1)
 
 DEPENDENCIES:
   - 1PasswordExtension (~> 1.8.2)
@@ -11,11 +11,11 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  1PasswordExtension: 303f2b7bbf6dc19ede3090bd6b5987530648d687
-  AFDateHelper: aecee6bb264d6531795649f4ebac47783d2bab74
-  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  1PasswordExtension: e775a29310c65851e5a6cec1afc349ab4e334e47
+  AFDateHelper: e64bcc4a88a07e1d3e62442741b2a164adc02d77
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
 
-PODFILE CHECKSUM: 7fa97136508ef8aafe133a9df50e99fb88d058f5
+PODFILE CHECKSUM: 028f9ff9da8c8f77a1dd00f7c058cc317eb64011
 
 COCOAPODS: 1.0.1

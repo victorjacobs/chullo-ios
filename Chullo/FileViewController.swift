@@ -12,11 +12,11 @@ class FileViewController: UIViewController {
     // MARK: Properties
     var file: File! {
         didSet {
-            let url = NSURL(string: file.downloadUrl)
+            let url = URL(string: file.downloadUrl)
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                let data = NSData(contentsOfURL: url!)
-                dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+                let data = try? Data(contentsOf: url!)
+                DispatchQueue.main.async(execute: {
                     if let data = data {
                         self.imageView.image = UIImage(data: data)
                     }

@@ -15,7 +15,7 @@ import SwiftyJSON
 class FilesTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var files: [File] = []
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
@@ -52,22 +52,22 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
     }
     
     // MARK: Actions
-    @IBAction func upload(sender: AnyObject) {
+    @IBAction func upload(_ sender: AnyObject) {
         let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = .PhotoLibrary
+        imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self
-        presentViewController(imagePickerController, animated: true, completion: nil)
+        present(imagePickerController, animated: true, completion: nil)
     }
     
     // MARK: UIImagePickerControllerDelegate
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        if let imageURL = info[UIImagePickerControllerReferenceURL] as? NSURL {
-            let result = PHAsset.fetchAssetsWithALAssetURLs([imageURL], options: nil)
+        if let imageURL = info[UIImagePickerControllerReferenceURL] as? URL {
+            let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
             let filename = result.firstObject?.filename ?? ""
             
             // TODO maybe promisify this
@@ -87,18 +87,18 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.files.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FileTableViewCell", forIndexPath: indexPath) as! FileTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FileTableViewCell", for: indexPath) as! FileTableViewCell
 
-        cell.file = self.files[indexPath.row]
+        cell.file = self.files[(indexPath as NSIndexPath).row]
 
         return cell
     }
@@ -139,9 +139,9 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
     */
 
     // MARK: - Navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowFile" {
-            let fileViewController = segue.destinationViewController as! FileViewController
+            let fileViewController = segue.destination as! FileViewController
             if let selectedFileCell = sender as? FileTableViewCell {
                 fileViewController.file = selectedFileCell.file
             }

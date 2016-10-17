@@ -14,7 +14,7 @@ struct File {
     let id: String
     let type: String?
     let size: Int
-    let updatedAt: NSDate
+    let updatedAt: Date
     var viewUrl: String {
         return "\(Router.baseUrl)/v/\(id)"
     }
@@ -22,12 +22,12 @@ struct File {
         return "\(Router.baseUrl)/d/\(id)"
     }
     
-    static func fromJSON(json: JSON) -> File {
+    static func fromJSON(_ json: JSON) -> File {
         let parsed = File(name: json["name"].stringValue,
                           id: json["_id"].stringValue,
                           type: json["mime"].stringValue,
                           size: json["size"].intValue,
-                          updatedAt: NSDate(fromString: json["updatedAt"].stringValue, format: .ISO8601(.DateTimeMilliSec)))
+                          updatedAt: Date(fromString: json["updatedAt"].stringValue, format: .ISO8601(.DateTimeMilliSec)))
 
         return parsed
     }
