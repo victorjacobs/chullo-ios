@@ -10,10 +10,14 @@ import UIKit
 
 class FileTableViewCell: UITableViewCell {
     // MARK: Properties
+    @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var filenameLabel: UILabel!
     var file: File! {
         didSet {
             filenameLabel.text = file.name
+            if let url = try? file.thumbnailUrl.asURL(), let imageData = try? Data(contentsOf: url) {
+                thumbnailImageView.image = UIImage(data: imageData)
+            }
         }
     }
     

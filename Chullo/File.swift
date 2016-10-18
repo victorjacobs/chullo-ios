@@ -21,13 +21,17 @@ struct File {
     var downloadUrl: String {
         return "\(Router.baseUrl)/d/\(id)"
     }
+    var thumbnailUrl: String {
+        return "\(viewUrl)/thumb"
+    }
     
     static func fromJSON(_ json: JSON) -> File {
         let parsed = File(name: json["name"].stringValue,
                           id: json["_id"].stringValue,
                           type: json["mime"].stringValue,
                           size: json["size"].intValue,
-                          updatedAt: Date(fromString: json["updatedAt"].stringValue, format: .ISO8601(.DateTimeMilliSec)))
+                          updatedAt: Date(fromString: json["updatedAt"].stringValue,
+                                          format: .iso8601(.DateTimeMilliSec)))
 
         return parsed
     }

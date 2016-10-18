@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		570B99B21D2199B500FE920B /* RequestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570B99B11D2199B500FE920B /* RequestExtension.swift */; };
 		575EEBB51D1815C000E90C5B /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575EEBB41D1815C000E90C5B /* Router.swift */; };
 		575EEBB71D18334800E90C5B /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575EEBB61D18334800E90C5B /* OAuth.swift */; };
+		576C294D1DB52449005C030B /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576C294C1DB52449005C030B /* SettingsTableViewController.swift */; };
 		5786F46A1D15CF81008FFE4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5786F4691D15CF81008FFE4B /* AppDelegate.swift */; };
 		5786F4711D15CF81008FFE4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5786F46F1D15CF81008FFE4B /* Main.storyboard */; };
 		5786F4731D15CF81008FFE4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5786F4721D15CF81008FFE4B /* Assets.xcassets */; };
@@ -38,9 +38,9 @@
 /* Begin PBXFileReference section */
 		1B45AF72249C54810D6D11AC /* Pods_Chullo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chullo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BFDCF17E9A8FA568841924A /* Pods_ChulloTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChulloTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		570B99B11D2199B500FE920B /* RequestExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestExtension.swift; sourceTree = "<group>"; };
 		575EEBB41D1815C000E90C5B /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		575EEBB61D18334800E90C5B /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
+		576C294C1DB52449005C030B /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		5786F4661D15CF81008FFE4B /* Chullo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chullo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5786F4691D15CF81008FFE4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5786F4701D15CF81008FFE4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -124,7 +124,6 @@
 				575EEBB41D1815C000E90C5B /* Router.swift */,
 				575EEBB61D18334800E90C5B /* OAuth.swift */,
 				57A2C3521D1949E300055043 /* FileTableViewCell.swift */,
-				570B99B11D2199B500FE920B /* RequestExtension.swift */,
 			);
 			path = Chullo;
 			sourceTree = "<group>";
@@ -145,6 +144,7 @@
 				57A2C3501D19488E00055043 /* FilesTableViewController.swift */,
 				57AC6AFF1D196E750088B93E /* ProfileViewController.swift */,
 				57AEB8821D4E5F2100F5C9C6 /* FileViewController.swift */,
+				576C294C1DB52449005C030B /* SettingsTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -378,9 +378,9 @@
 				575EEBB51D1815C000E90C5B /* Router.swift in Sources */,
 				57A2C3511D19488E00055043 /* FilesTableViewController.swift in Sources */,
 				5786F46A1D15CF81008FFE4B /* AppDelegate.swift in Sources */,
+				576C294D1DB52449005C030B /* SettingsTableViewController.swift in Sources */,
 				57AEB8831D4E5F2100F5C9C6 /* FileViewController.swift in Sources */,
 				57AC6B001D196E750088B93E /* ProfileViewController.swift in Sources */,
-				570B99B21D2199B500FE920B /* RequestExtension.swift in Sources */,
 				575EEBB71D18334800E90C5B /* OAuth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

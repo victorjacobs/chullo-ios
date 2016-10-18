@@ -25,15 +25,6 @@ enum Router: URLRequestConvertible {
         return "https://chullo.io"
     }
     
-    var method: Alamofire.Method {
-        switch (self) {
-        case .authenticate(_, _), .refreshToken(_), .postFiles(_), .UploadFile(_, _):
-            return .POST
-        default:
-            return .GET
-        }
-    }
-    
     var path: String {
         switch self {
         case .authenticate(_, _), .refreshToken(_):
@@ -43,59 +34,75 @@ enum Router: URLRequestConvertible {
         case .getFiles, .postFiles(_):
             return "/files"
         case .getStats:
-            return "/stats"
-        case .UploadFile(_, _):
+            return "/status"
+        case .uploadFile(_, _):
             return "/upload"
         }
     }
     
-    var URLRequest: NSMutableURLRequest {
-        let URL = Foundation.URL(string: Router.baseUrl)!
-        var mutableURLRequest = NSMutableURLRequest(url: URL.appendingPathComponent(path))
-        mutableURLRequest.HTTPMethod = method.rawValue
-        
-        // Set authorization
+    var method: HTTPMethod {
+        switch (self) {
+        case .authenticate(_, _), .refreshToken(_), .postFiles(_), .uploadFile(_, _):
+            return .post
+        default:
+            return .get
+        }
+    }
+    
+    var url: URL {
+        return Foundation.URL(string: Router.baseUrl)!.appendingPathComponent(path)
+    }
+    
+    var headers: HTTPHeaders {
         switch self {
         case .authenticate(_, _), .refreshToken(_):
-            break
+            return [:]
         default:
             if let accessToken = OAuth.accessToken {
-                mutableURLRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+                return [
+                    "Authorization": "Bearer \(accessToken)"
+                ]
             } else {
-                print("no accesstoken found")
+                return [:]
             }
         }
-        
+    }
+    
+    var URLRequest: DataRequest {
         //  Set parameters of request
         switch self {
         case .authenticate(let email, let password):
             // TODO constants extracten en ergens storen
-            return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: [
+            return Alamofire.request(url, method: method, parameters: [
                 "grant_type": "password",
                 "username": email,
                 "password": password,
                 "client_id": "CYdRSMq2PGkJdsEd9uhIZFqWS0sYqZ",
                 "client_secret": "rTLuyr6OiKksinIMoG8vdW1tGGsWuG"
-//                "client_id": "foo",
-//                "client_secret": "bar"
-                ]).0
+                //                "client_id": "foo",
+                //                "client_secret": "bar"
+                ], encoding: URLEncoding.default)
         case .refreshToken(let refreshToken):
-            return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: [
+            return Alamofire.request(url, method: method, parameters: [
                 "grant_type": "refresh_token",
                 "refresh_token": refreshToken,
                 "client_id": "CYdRSMq2PGkJdsEd9uhIZFqWS0sYqZ",
                 "client_secret": "rTLuyr6OiKksinIMoG8vdW1tGGsWuG"
 //                "client_id": "foo",
 //                "client_secret": "bar"
-                ]).0
+                ], encoding: URLEncoding.default)
         case .postFiles(let fileName):
-            return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: [
+            return Alamofire.request(url, method: method, parameters: [
                     "name": fileName
-                ]).0
-        case .UploadFile(let id, let image):
-            return mutableURLRequest
+                ], encoding: JSONEncoding.default, headers: headers)
+        case .uploadFile(let id, let image):
+            return Alamofire.request(url, method: method, headers: headers)
         default:
-            return mutableURLRequest
+            return Alamofire.request(url, method: method, headers: headers)
         }
+    }
+    
+    public func asURLRequest() throws -> URLRequest {
+        return self.URLRequest.request!
     }
 }

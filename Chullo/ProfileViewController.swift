@@ -18,15 +18,15 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        debugPrint(Alamofire.request(Router.GetStats)
+        debugPrint(Alamofire.request(Router.getStats)
             .validate()
             .responseJSON { response in
                 switch response.result {
-                case .Success(let data):
+                case .success(let data):
                     print(data)
                     let json = JSON(data)
                     self.statsLabel.text = "Serving \(json["files"]) files"
-                case .Failure(let err):
+                case .failure(let err):
                     print(err)
                 }
             })

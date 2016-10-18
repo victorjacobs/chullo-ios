@@ -69,7 +69,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         default: break
         }
         
-        return textField.text?.characters.count > 0
+        return (textField.text?.characters.count)! > 0
     }
     
     /*

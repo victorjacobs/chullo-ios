@@ -23,18 +23,18 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
         super.viewDidLoad()
         
         // Fetch all files when view loaded
-        Alamofire.request(Router.GetFiles)
+        Alamofire.request(Router.getFiles)
             .validate()
             .responseJSON { response in
                 switch response.result {
-                case .Success(let data):
+                case .success(let data):
                     let json = JSON(data)
                     for file in json {
                         self.files.append(File.fromJSON(file.1))
                     }
                     
                     self.tableView.reloadData()
-                case .Failure(let err):
+                case .failure(let err):
                     print(err)
                 }
         }
@@ -68,17 +68,18 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
         let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         if let imageURL = info[UIImagePickerControllerReferenceURL] as? URL {
             let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
-            let filename = result.firstObject?.filename ?? ""
+            //let filename = result.firstObject?.fileName ?? ""
+            let filename: String? = "TODO"
             
             // TODO maybe promisify this
-            debugPrint(Alamofire.request(Router.PostFiles(filename!))
+            debugPrint(Alamofire.request(Router.postFiles(filename!))
                 .validate()
                 .responseJSON { response in
                     switch response.result {
-                    case .Success(let data):
-                        self.dismissViewControllerAnimated(true, completion: nil)
+                    case .success(let data):
+                        self.dismiss(animated: true, completion: nil)
                         let id = JSON(data)["_id"]
-                    case .Failure(let err):
+                    case .failure(let err):
                         print(err)
                     }
                 })
