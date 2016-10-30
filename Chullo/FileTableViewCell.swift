@@ -15,9 +15,7 @@ class FileTableViewCell: UITableViewCell {
     var file: File! {
         didSet {
             filenameLabel.text = file.name
-            if let url = try? file.thumbnailUrl.asURL(), let imageData = try? Data(contentsOf: url) {
-                thumbnailImageView.image = UIImage(data: imageData)
-            }
+            thumbnailImageView.image = file.thumbnail
         }
     }
     

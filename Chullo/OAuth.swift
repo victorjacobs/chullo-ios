@@ -19,14 +19,13 @@ class OAuth {
     static let refreshTokenKey = "oauthRefreshTokenKey"
     static let defaults = UserDefaults.standard
     
+    static let queue = DispatchQueue(label: "com.victorjacobs.Chullo.oauth-queue", attributes: .concurrent)
+    
     // MARK: Properties
     static var accessToken: String? {
         if expired, let refreshToken = refreshToken {
             // Use semaphore to perform synchronous token refresh
             let semaphore = DispatchSemaphore(value: 0)
-            
-            // Create queue to avoid refresh token call waiting on call that triggered it
-            let queue = DispatchQueue(label: "com.victorjacobs.chullo.refresh-token-queue", attributes: DispatchQueue.Attributes.concurrent)
             
             debugPrint(Alamofire.request(Router.refreshToken(refreshToken))
                 .validate()
@@ -43,7 +42,7 @@ class OAuth {
                     semaphore.signal()
                 })
             
-            semaphore.wait(timeout: DispatchTime.distantFuture)
+            let _ = semaphore.wait(timeout: .distantFuture)
         }
         return defaults.object(forKey: tokenKey) as? String
     }
@@ -72,9 +71,12 @@ class OAuth {
     
     // MARK: OAuth Methods
     static func authenticate(_ userName: String, password: String) {
-        debugPrint(Alamofire.request(Router.authenticate(userName, password))
+        // Block main thread while getting token
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Alamofire.request(Router.authenticate(userName, password))
             .validate()
-            .responseJSON { response in
+            .responseJSON(queue: queue) { response in
                 switch response.result {
                 case .success(let value):
                     print(response)
@@ -83,7 +85,11 @@ class OAuth {
                     print("invalid credentials")
                     print(response)
                 }
-            })
+                
+                semaphore.signal()
+            }
+        
+        let _ = semaphore.wait(timeout: .distantFuture)
     }
     
     static func saveFromOAuthResponse(_ response: Any) {

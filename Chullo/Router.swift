@@ -14,7 +14,7 @@ enum Router: URLRequestConvertible {
     case authenticate(String, String)
     case refreshToken(String)
     case getProfile
-    case getFiles
+    case getFiles(Int)
     case getStats
     
     // Upload
@@ -95,8 +95,11 @@ enum Router: URLRequestConvertible {
             return Alamofire.request(url, method: method, parameters: [
                     "name": fileName
                 ], encoding: JSONEncoding.default, headers: headers)
-        case .uploadFile(let id, let image):
-            return Alamofire.request(url, method: method, headers: headers)
+        case .getFiles(let page):
+            return Alamofire.request(url, method: method, parameters: [
+                "page": String(page),
+                "page_size": 20
+                ], encoding: URLEncoding.default, headers: headers)
         default:
             return Alamofire.request(url, method: method, headers: headers)
         }

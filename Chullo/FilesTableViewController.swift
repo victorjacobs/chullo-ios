@@ -14,30 +14,24 @@ import SwiftyJSON
 // TODO maybe move upload logic to different controller
 class FilesTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var files: [File] = []
+    var totalRecords: Int?
+    var pageSize: Int?
+    
+    private let apiQueue = DispatchQueue(label: "com.victorjacobs.Chullo.files-table-view-api")
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // Fetch all files when view will appear (not when loaded, because that might miss first load when logging in)
+        if (files.count != 0) {
+            return
+        }
+        
+        loadOnePageOfFiles(startingFrom: 0) {}
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Fetch all files when view loaded
-        Alamofire.request(Router.getFiles)
-            .validate()
-            .responseJSON { response in
-                switch response.result {
-                case .success(let data):
-                    let json = JSON(data)
-                    for file in json {
-                        self.files.append(File.fromJSON(file.1))
-                    }
-                    
-                    self.tableView.reloadData()
-                case .failure(let err):
-                    print(err)
-                }
-        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -93,15 +87,56 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //return totalRecords ?? 0
         return self.files.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FileTableViewCell", for: indexPath) as! FileTableViewCell
-
-        cell.file = self.files[(indexPath as NSIndexPath).row]
-
+        
+        let index = (indexPath as NSIndexPath).row
+        
+        if (index >= files.count && index < totalRecords!) {
+            print("Loading more rows")
+            loadOnePageOfFiles(startingFrom: self.files.count + 1) {
+                cell.file = self.files[index]
+            }
+        } else {
+            cell.file = self.files[index]
+        }
+        
         return cell
+    }
+    
+    private func loadOnePageOfFiles(startingFrom start: Int, onCompletion: @escaping () -> ()) {
+        var pageToLoad: Int
+        if let pageSize = pageSize {
+            pageToLoad = Int(floor(Double(start) / Double(pageSize)))
+        } else {
+            pageToLoad = 1
+        }
+        
+        Alamofire.request(Router.getFiles(pageToLoad))
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let data):
+                    self.totalRecords = Int(response.response?.allHeaderFields["x-pagination-totalrecords"] as! String)!
+                    self.pageSize = Int(response.response?.allHeaderFields["x-pagination-pagesize"] as! String)!
+                    print("Got \(self.totalRecords) records with pagesize \(self.pageSize)")
+                    
+                    let json = JSON(data)
+                    for file in json {
+                        self.files.append(File(file.1))
+                    }
+                    
+                    self.tableView.reloadData()
+                case .failure(let err):
+                    print(err)
+                }
+                
+                onCompletion()
+        }
     }
 
     /*

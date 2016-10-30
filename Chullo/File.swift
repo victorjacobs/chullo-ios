@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-struct File {
+class File {
     let name: String
     let id: String
     let type: String?
@@ -24,15 +24,23 @@ struct File {
     var thumbnailUrl: String {
         return "\(viewUrl)/thumb"
     }
+    var thumbnail: UIImage?
     
-    static func fromJSON(_ json: JSON) -> File {
-        let parsed = File(name: json["name"].stringValue,
-                          id: json["_id"].stringValue,
-                          type: json["mime"].stringValue,
-                          size: json["size"].intValue,
-                          updatedAt: Date(fromString: json["updatedAt"].stringValue,
-                                          format: .iso8601(.DateTimeMilliSec)))
-
-        return parsed
+    init(_ json: JSON) {
+        name = json["name"].stringValue
+        id = json["_id"].stringValue
+        type = json["mime"].stringValue
+        size = json["size"].intValue
+        updatedAt = Date(fromString: json["updatedAt"].stringValue, format: .iso8601(.DateTimeMilliSec))
+        
+        let thumbnailQueue = DispatchQueue(label: "com.victorjacobs.Chullo.thumbail-fetcher", attributes: .concurrent)
+        
+        // TODO make the next thing even more lazy (should only be loaded when the file comes into view)
+        thumbnailQueue.async {
+            if let url = try? self.thumbnailUrl.asURL(), let imageData = try? Data(contentsOf: url) {
+                print("Downloading thumbnail")
+                self.thumbnail = UIImage(data: imageData)
+            }
+        }
     }
 }
