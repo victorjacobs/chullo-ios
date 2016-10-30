@@ -18,10 +18,20 @@ class OAuth {
     static let tokenExpiryKey = "oauthTokenExpiry"
     static let refreshTokenKey = "oauthRefreshTokenKey"
     static let defaults = UserDefaults.standard
-    
+    static let paramsPath = Bundle.main.path(forResource: "OAuthParams", ofType: "plist")!
     static let queue = DispatchQueue(label: "com.victorjacobs.Chullo.oauth-queue", attributes: .concurrent)
     
     // MARK: Properties
+    static var clientSecret: String {
+        let params = NSDictionary(contentsOfFile: paramsPath) as! [String: String]
+        return params["CHClientSecret"]!
+    }
+    
+    static var clientId: String {
+        let params = NSDictionary(contentsOfFile: paramsPath) as! [String: String]
+        return params["CHClientId"]!
+    }
+    
     static var accessToken: String? {
         if expired, let refreshToken = refreshToken {
             // Use semaphore to perform synchronous token refresh

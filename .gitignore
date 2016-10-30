@@ -21,3 +21,4 @@ xcuserdata/
 .DS_Store
 Chullo.xcworkspace
 Pods
+OAuthParams.plist

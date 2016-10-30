@@ -77,19 +77,15 @@ enum Router: URLRequestConvertible {
                 "grant_type": "password",
                 "username": email,
                 "password": password,
-                "client_id": "CYdRSMq2PGkJdsEd9uhIZFqWS0sYqZ",
-                "client_secret": "rTLuyr6OiKksinIMoG8vdW1tGGsWuG"
-                //                "client_id": "foo",
-                //                "client_secret": "bar"
+                "client_id": OAuth.clientId,
+                "client_secret": OAuth.clientSecret
                 ], encoding: URLEncoding.default)
         case .refreshToken(let refreshToken):
             return Alamofire.request(url, method: method, parameters: [
                 "grant_type": "refresh_token",
                 "refresh_token": refreshToken,
-                "client_id": "CYdRSMq2PGkJdsEd9uhIZFqWS0sYqZ",
-                "client_secret": "rTLuyr6OiKksinIMoG8vdW1tGGsWuG"
-//                "client_id": "foo",
-//                "client_secret": "bar"
+                "client_id": OAuth.clientId,
+                "client_secret": OAuth.clientSecret
                 ], encoding: URLEncoding.default)
         case .postFiles(let fileName):
             return Alamofire.request(url, method: method, parameters: [
