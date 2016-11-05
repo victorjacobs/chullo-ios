@@ -81,14 +81,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6cX-qj-b2j">
-                                <rect key="frame" x="0.0" y="300" width="600" height="0.0"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6cX-qj-b2j">
+                                <rect key="frame" x="-4" y="64" width="383" height="539"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6cX-qj-b2j" firstAttribute="leading" secondItem="VG3-Et-Xgj" secondAttribute="leadingMargin" constant="-20" id="B5s-PO-g1K"/>
                             <constraint firstItem="6cX-qj-b2j" firstAttribute="centerY" secondItem="VG3-Et-Xgj" secondAttribute="centerY" id="ULm-Vw-teN"/>
+                            <constraint firstItem="6cX-qj-b2j" firstAttribute="top" secondItem="KZy-Cy-mIj" secondAttribute="bottom" id="Xmq-Y8-rku"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6cX-qj-b2j" secondAttribute="trailing" constant="-20" id="n5m-Y0-zF1"/>
                             <constraint firstItem="6cX-qj-b2j" firstAttribute="centerX" secondItem="VG3-Et-Xgj" secondAttribute="centerX" id="wm9-87-lhx"/>
                         </constraints>
@@ -113,18 +114,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="350" placeholderIntrinsicHeight="60" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="MPs-Yg-i9h">
-                                <rect key="frame" x="30" y="243" width="323" height="114"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="350" placeholderIntrinsicHeight="60" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="MPs-Yg-i9h">
+                                <rect key="frame" x="26" y="276.5" width="323" height="114"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="sF8-ex-Zpv">
                                         <rect key="frame" x="0.0" y="0.0" width="323" height="30"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gis-EH-PGL">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gis-EH-PGL">
                                                 <rect key="frame" x="0.0" y="0.0" width="289" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="27" placeholderIntrinsicHeight="27" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AtI-zt-YSN">
+                                            <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="27" placeholderIntrinsicHeight="27" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AtI-zt-YSN">
                                                 <rect key="frame" x="296" y="0.0" width="27" height="30"/>
                                                 <connections>
                                                     <action selector="findLoginFrom1Password:" destination="SXs-n2-hLw" eventType="touchUpInside" id="Ik2-5N-Swm"/>

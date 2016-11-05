@@ -9,12 +9,19 @@
 import Foundation
 import SwiftyJSON
 
+enum ThumbnailImage {
+    case notLoaded
+    case loaded(UIImage)
+    case noThumbnail
+}
+
 class File {
     let name: String
     let id: String
     let type: String?
     let size: Int
     let updatedAt: Date
+    var thumbnail: ThumbnailImage = .notLoaded
     var viewUrl: String {
         return "\(Router.baseUrl)/v/\(id)"
     }
@@ -24,7 +31,6 @@ class File {
     var thumbnailUrl: String {
         return "\(viewUrl)/thumb"
     }
-    var thumbnail: UIImage?
     
     init(_ json: JSON) {
         name = json["name"].stringValue
@@ -32,15 +38,19 @@ class File {
         type = json["mime"].stringValue
         size = json["size"].intValue
         updatedAt = Date(fromString: json["updatedAt"].stringValue, format: .iso8601(.DateTimeMilliSec))
-        
-        let thumbnailQueue = DispatchQueue(label: "com.victorjacobs.Chullo.thumbail-fetcher", attributes: .concurrent)
-        
-        // TODO make the next thing even more lazy (should only be loaded when the file comes into view)
-        thumbnailQueue.async {
-            if let url = try? self.thumbnailUrl.asURL(), let imageData = try? Data(contentsOf: url) {
-                print("Downloading thumbnail")
-                self.thumbnail = UIImage(data: imageData)
+    }
+    
+    func loadThumbnail() {
+        if let url = try? self.thumbnailUrl.asURL(), let imageData = try? Data(contentsOf: url) {
+            print("Downloading thumbnail")
+            
+            if let loadedThumbnail = UIImage(data: imageData) {
+                self.thumbnail = .loaded(loadedThumbnail)
+            } else {
+                self.thumbnail = .noThumbnail
             }
+        } else {
+            self.thumbnail = .noThumbnail
         }
     }
 }

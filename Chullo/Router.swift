@@ -94,7 +94,7 @@ enum Router: URLRequestConvertible {
         case .getFiles(let page):
             return Alamofire.request(url, method: method, parameters: [
                 "page": String(page),
-                "page_size": 20
+                "page_size": 50
                 ], encoding: URLEncoding.default, headers: headers)
         default:
             return Alamofire.request(url, method: method, headers: headers)

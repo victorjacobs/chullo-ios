@@ -17,7 +17,7 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
     var totalRecords: Int?
     var pageSize: Int?
     
-    private let apiQueue = DispatchQueue(label: "com.victorjacobs.Chullo.files-table-view-api")
+    private let thumbnailQueue = DispatchQueue(label: "com.victorjacobs.Chullo.thumbnail-fetcher", attributes: .concurrent)
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -96,13 +96,25 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
         
         let index = (indexPath as NSIndexPath).row
         
-        if (index >= files.count && index < totalRecords!) {
-            print("Loading more rows")
-            loadOnePageOfFiles(startingFrom: self.files.count + 1) {
-                cell.file = self.files[index]
+//        if (index >= files.count && index < totalRecords!) {
+//            print("Loading more rows")
+//            loadOnePageOfFiles(startingFrom: self.files.count + 1) {
+//                cell.file = self.files[index]
+//            }
+//        } else {
+//            cell.file = self.files[index]
+//        }
+        
+        cell.file = self.files[index]
+        
+        // Load image whenever cell is loaded
+        if case .notLoaded = cell.file.thumbnail {
+            thumbnailQueue.async {
+                cell.file.loadThumbnail()
+                DispatchQueue.main.async {
+                    self.tableView.reloadRows(at: [indexPath], with: .none)
+                }
             }
-        } else {
-            cell.file = self.files[index]
         }
         
         return cell

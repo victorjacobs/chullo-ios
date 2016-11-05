@@ -15,7 +15,13 @@ class FileTableViewCell: UITableViewCell {
     var file: File! {
         didSet {
             filenameLabel.text = file.name
-            thumbnailImageView.image = file.thumbnail
+            switch file.thumbnail {
+            case .loaded(let thumbNailImage):
+                thumbnailImageView.image = thumbNailImage
+            // TODO placeholder image
+            default:
+                thumbnailImageView.image = nil
+            }
         }
     }
     
