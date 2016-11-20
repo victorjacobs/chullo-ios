@@ -7,45 +7,52 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class SettingsTableViewController: UITableViewController {
+    @IBOutlet weak var totalFilesLabel: UILabel!
+    @IBOutlet weak var versionLabel: UILabel!
+    @IBOutlet weak var builtOnLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var totalTrafficLabel: UILabel!
+    @IBOutlet weak var totalSizeLabel: UILabel!
+    @IBOutlet weak var clientIdLabel: UILabel!
+    @IBOutlet weak var clientSecretLabel: UILabel!
+    
+    var statusData: JSON? {
+        didSet {
+            self.totalFilesLabel.text = statusData!["files"].stringValue
+            self.versionLabel.text = statusData!["version"].stringValue
+            self.builtOnLabel.text = statusData!["builtOn"].stringValue
+            self.totalTrafficLabel.text = ByteCountFormatter.string(fromByteCount: statusData!["totalTraffic"].int64Value, countStyle: .decimal)
+            self.totalSizeLabel.text = ByteCountFormatter.string(fromByteCount: statusData!["totalSize"].int64Value, countStyle: .decimal)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        Alamofire.request(Router.getStatus)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let data):
+                    print(data)
+                    self.statusData = JSON(data)
+                case .failure(let err):
+                    print(err)
+                }
+        }
+        
+        self.clientIdLabel.text = OAuth.clientId
+        self.clientSecretLabel.text = OAuth.clientSecret
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -64,21 +71,6 @@ class SettingsTableViewController: UITableViewController {
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
     }
     */
 

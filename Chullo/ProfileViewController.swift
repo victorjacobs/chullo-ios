@@ -18,7 +18,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        debugPrint(Alamofire.request(Router.getStats)
+        debugPrint(Alamofire.request(Router.getStatus)
             .validate()
             .responseJSON { response in
                 switch response.result {

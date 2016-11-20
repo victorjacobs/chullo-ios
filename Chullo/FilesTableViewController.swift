@@ -12,10 +12,15 @@ import Alamofire
 import SwiftyJSON
 
 // TODO maybe move upload logic to different controller
-class FilesTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FilesTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchResultsUpdating {
+    let searchController = UISearchController(searchResultsController: nil)
+    
     var files: [File] = []
+    var loading = false
+    
+    var totalPages: Int?
     var totalRecords: Int?
-    var pageSize: Int?
+    var currentPage: Int = 0
     
     private let thumbnailQueue = DispatchQueue(label: "com.victorjacobs.Chullo.thumbnail-fetcher", attributes: .concurrent)
     
@@ -27,11 +32,17 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
             return
         }
         
-        loadOnePageOfFiles(startingFrom: 0) {}
+        loadNextPage()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup search controller
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -87,67 +98,76 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return totalRecords ?? 0
-        return self.files.count
+        if totalRecords == nil || files.count >= totalRecords! {
+            return self.files.count
+        } else {
+            return (self.files.count > 0 ? self.files.count + 1 : 0)
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FileTableViewCell", for: indexPath) as! FileTableViewCell
-        
         let index = (indexPath as NSIndexPath).row
-        
-//        if (index >= files.count && index < totalRecords!) {
-//            print("Loading more rows")
-//            loadOnePageOfFiles(startingFrom: self.files.count + 1) {
-//                cell.file = self.files[index]
-//            }
-//        } else {
-//            cell.file = self.files[index]
-//        }
-        
-        cell.file = self.files[index]
-        
-        // Load image whenever cell is loaded
-        if case .notLoaded = cell.file.thumbnail {
-            thumbnailQueue.async {
-                cell.file.loadThumbnail()
-                DispatchQueue.main.async {
-                    self.tableView.reloadRows(at: [indexPath], with: .none)
+        if index < self.files.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FileTableViewCell", for: indexPath) as! FileTableViewCell
+            
+            cell.file = self.files[index]
+            
+            // Load image whenever cell is loaded
+            if case .notLoaded = cell.file.thumbnail {
+                thumbnailQueue.async {
+                    cell.file.loadThumbnail()
+                    DispatchQueue.main.async {
+                        self.tableView.reloadRows(at: [indexPath], with: .none)
+                    }
                 }
             }
+            
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LoadingCell", for: indexPath)
+            
+            cell.textLabel!.text = "Loading..."
+            
+            return cell
         }
-        
-        return cell
     }
     
-    private func loadOnePageOfFiles(startingFrom start: Int, onCompletion: @escaping () -> ()) {
-        var pageToLoad: Int
-        if let pageSize = pageSize {
-            pageToLoad = Int(floor(Double(start) / Double(pageSize)))
-        } else {
-            pageToLoad = 1
+    private func loadNextPage() {
+        if self.loading {
+            return
         }
         
-        Alamofire.request(Router.getFiles(pageToLoad))
+        if let totalPages = self.totalPages, self.currentPage >= totalPages {
+            return
+        }
+        
+        self.loading = true
+        self.currentPage += 1
+        
+        Alamofire.request(Router.getFiles(self.currentPage))
             .validate()
             .responseJSON { response in
                 switch response.result {
                 case .success(let data):
+                    self.totalPages = Int(response.response?.allHeaderFields["x-pagination-totalpages"] as! String)!
                     self.totalRecords = Int(response.response?.allHeaderFields["x-pagination-totalrecords"] as! String)!
-                    self.pageSize = Int(response.response?.allHeaderFields["x-pagination-pagesize"] as! String)!
-                    print("Got \(self.totalRecords) records with pagesize \(self.pageSize)")
+                    
+                    print("Got \(self.totalRecords), on page \(self.currentPage)")
                     
                     let json = JSON(data)
+                    var rows = [IndexPath]()
                     for file in json {
                         self.files.append(File(file.1))
+                        rows.append(IndexPath(row: self.files.count - 1, section: 0))
                     }
                     
+//                    self.tableView.insertRows(at: rows, with: .automatic)
                     self.tableView.reloadData()
+                    self.loading = false
                 case .failure(let err):
                     print(err)
+                    self.loading = false
                 }
-                
-                onCompletion()
         }
     }
 
@@ -185,6 +205,15 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
         return true
     }
     */
+    
+    // MARK: - Scroll view delegate
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (self.tableView.contentOffset.y > self.tableView.contentSize.height - self.tableView.bounds.size.height - self.tableView.rowHeight) {
+            print("Loading more rows")
+            loadNextPage()
+        }
+    }
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -194,6 +223,15 @@ class FilesTableViewController: UITableViewController, UIImagePickerControllerDe
                 fileViewController.file = selectedFileCell.file
             }
         }
+    }
+    
+    // MARK: - Search
+    func filterContentForSearchText(searchText: String, scope: String = "All") {
+        
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
     }
 
 }
