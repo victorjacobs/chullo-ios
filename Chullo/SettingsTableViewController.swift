@@ -83,4 +83,13 @@ class SettingsTableViewController: UITableViewController {
         
         present(alert, animated: true)
     }
+    
+    // MARK: - navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Prepare edit controller for segue
+        if let identifier = segue.identifier, identifier.hasPrefix("Edit") {
+            let settingEditController = segue.destination as! SettingEditTableViewController
+            settingEditController.type = SettingEditTableViewControllerType(rawValue: segue.identifier!)
+        }
+    }
 }

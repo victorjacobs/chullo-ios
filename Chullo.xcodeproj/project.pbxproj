@@ -22,6 +22,7 @@
 		57AC6B001D196E750088B93E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AC6AFF1D196E750088B93E /* ProfileViewController.swift */; };
 		57AEB8831D4E5F2100F5C9C6 /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AEB8821D4E5F2100F5C9C6 /* FileViewController.swift */; };
 		57C63B581DC68D010013B9CB /* OAuthParams.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57C63B571DC68D010013B9CB /* OAuthParams.plist */; };
+		57FB60801DE232DB002F90D8 /* SettingEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FB607F1DE232DB002F90D8 /* SettingEditTableViewController.swift */; };
 		8C83AF9A9CF9CFC33659DB0E /* Pods_Chullo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B45AF72249C54810D6D11AC /* Pods_Chullo.framework */; };
 		AC9B6DF3C3DDE4B63B521C4A /* Pods_ChulloTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BFDCF17E9A8FA568841924A /* Pods_ChulloTests.framework */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		57AC6AFF1D196E750088B93E /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		57AEB8821D4E5F2100F5C9C6 /* FileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
 		57C63B571DC68D010013B9CB /* OAuthParams.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuthParams.plist; sourceTree = "<group>"; };
+		57FB607F1DE232DB002F90D8 /* SettingEditTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingEditTableViewController.swift; sourceTree = "<group>"; };
 		663D7E95B2B3C531D9DF56B7 /* Pods-Chullo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chullo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chullo/Pods-Chullo.debug.xcconfig"; sourceTree = "<group>"; };
 		BF3D5615B7B8F74AF19C1D1A /* Pods-ChulloTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChulloTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChulloTests/Pods-ChulloTests.release.xcconfig"; sourceTree = "<group>"; };
 		CCCB86D9EE0132E95BE5ED60 /* Pods-ChulloTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChulloTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChulloTests/Pods-ChulloTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				57AC6AFF1D196E750088B93E /* ProfileViewController.swift */,
 				57AEB8821D4E5F2100F5C9C6 /* FileViewController.swift */,
 				576C294C1DB52449005C030B /* SettingsTableViewController.swift */,
+				57FB607F1DE232DB002F90D8 /* SettingEditTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				5786F46A1D15CF81008FFE4B /* AppDelegate.swift in Sources */,
 				576C294D1DB52449005C030B /* SettingsTableViewController.swift in Sources */,
 				57AEB8831D4E5F2100F5C9C6 /* FileViewController.swift in Sources */,
+				57FB60801DE232DB002F90D8 /* SettingEditTableViewController.swift in Sources */,
 				57AC6B001D196E750088B93E /* ProfileViewController.swift in Sources */,
 				575EEBB71D18334800E90C5B /* OAuth.swift in Sources */,
 			);

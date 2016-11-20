@@ -14,7 +14,7 @@ class FileViewController: UIViewController {
         didSet {
             let url = URL(string: file.downloadUrl)
             
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+            DispatchQueue.main.async {
                 let data = try? Data(contentsOf: url!)
                 DispatchQueue.main.async(execute: {
                     if let data = data {
@@ -24,6 +24,7 @@ class FileViewController: UIViewController {
             }
         }
     }
+    
     @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
@@ -36,16 +37,4 @@ class FileViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

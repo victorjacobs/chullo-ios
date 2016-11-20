@@ -287,10 +287,10 @@
             </objects>
             <point key="canvasLocation" x="1318" y="987"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Setting Edit-->
         <scene sceneID="Ae1-ZO-3IM">
             <objects>
-                <tableViewController id="b05-Uc-m8A" sceneMemberID="viewController">
+                <tableViewController title="Setting Edit" id="b05-Uc-m8A" customClass="SettingEditTableViewController" customModule="Chullo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="rFz-hg-YKD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -324,6 +324,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="28d-XL-TEt"/>
+                    <connections>
+                        <outlet property="valueTextField" destination="Y4v-OJ-Ytg" id="NVw-Ye-GIX"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bdJ-az-Ywe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -380,7 +383,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="b05-Uc-m8A" kind="show" id="5MZ-bx-k42"/>
+                                            <segue destination="b05-Uc-m8A" kind="show" identifier="EditClientID" id="5MZ-bx-k42"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="2yb-Kr-Wih" detailTextLabel="iey-SR-t2q" style="IBUITableViewCellStyleValue1" id="7Kq-dh-inl">
@@ -407,7 +410,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="b05-Uc-m8A" kind="show" id="gE7-Q4-fKc"/>
+                                            <segue destination="b05-Uc-m8A" kind="show" identifier="EditClientSecret" id="gE7-Q4-fKc"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -675,6 +678,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gE7-Q4-fKc"/>
+        <segue reference="CPI-oy-YTl"/>
     </inferredMetricsTieBreakers>
 </document>
